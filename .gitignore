@@ -1,3 +1,6 @@
 node_modules/
 *.log
 .DS_Store
+
+# npm auth files (secrets)
+*.npmrc

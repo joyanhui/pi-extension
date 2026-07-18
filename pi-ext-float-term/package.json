@@ -1,6 +1,6 @@
 {
   "name": "@joyanhui/pi-ext-float-term",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Pi coding agent extension — floating terminal overlay (fish, lazygit, yazi, gcp) powered by node-pty",
   "keywords": [
     "pi-package",
