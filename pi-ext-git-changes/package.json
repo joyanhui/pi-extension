@@ -11,9 +11,9 @@
     "changes",
     "overlay"
   ],
-  "homepage": "https://dev.leiyanhui.com/ai/",
+  "homepage": "https://github.com/joyanhui/pi-extension",
   "bugs": {
-    "url": "https://dev.leiyanhui.com/ai/"
+    "url": "https://github.com/joyanhui/pi-extension/issues"
   },
   "license": "MIT",
   "author": "joyanhui",

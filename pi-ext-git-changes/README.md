@@ -46,7 +46,7 @@ The extension shows a status indicator in pi's footer bar. For example:
 
 ## Documentation
 
-For more information, visit [dev.leiyanhui.com/ai](https://dev.leiyanhui.com/ai).
+For more information, visit [dev.leiyanhui.com/ai/pi-git-changes](https://dev.leiyanhui.com/ai/pi-git-changes/).
 
 ## License
 

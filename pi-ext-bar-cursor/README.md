@@ -40,7 +40,7 @@ If you're not using a terminal emulator that supports DECSCUSR (the `\x1b[6 q` s
 
 ## Documentation
 
-For more information, visit [dev.leiyanhui.com/ai](https://dev.leiyanhui.com/ai).
+For more information, visit [dev.leiyanhui.com/ai/pi-bar-cursor](https://dev.leiyanhui.com/ai/pi-bar-cursor/).
 
 ## License
 

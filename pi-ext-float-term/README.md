@@ -46,7 +46,7 @@ pi -e npm:@joyanhui/pi-ext-float-term
 
 ## Documentation
 
-For more information, visit [dev.leiyanhui.com/ai](https://dev.leiyanhui.com/ai).
+For more information, visit [dev.leiyanhui.com/ai/pi-float-term](https://dev.leiyanhui.com/ai/pi-float-term/).
 
 ## License
 
