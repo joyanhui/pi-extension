@@ -44,6 +44,10 @@ pi -e npm:@joyanhui/pi-ext-float-term
 - pi coding agent (v0.x+)
 - `node-pty` (included as dependency, auto-installed)
 
+## Documentation
+
+For more information, visit [dev.leiyanhui.com/ai](https://dev.leiyanhui.com/ai).
+
 ## License
 
 MIT

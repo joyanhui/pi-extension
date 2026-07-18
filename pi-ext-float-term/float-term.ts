@@ -1,24 +1,24 @@
 /**
- * Float Term — 浮动终端 (floating terminal overlay for pi)
+ * Float Term — Floating terminal overlay for pi
  *
  * Install:
  *   pi install npm:@joyanhui/pi-ext-float-term
  *
- * 用法：
- *   Ctrl+Alt+F  — 弹出一个浮动的 fish 终端小窗（居中，85% 宽 x 75% 高）
- *   Ctrl+Alt+G  — 浮动 lazygit
- *   Ctrl+Alt+Y  — 浮动 yazi
- *   Ctrl+Shift+Alt+G — 浮动 gcp (git conventional commits)
+ * Usage:
+ *   Ctrl+Alt+F  — Open a floating fish terminal (centered, 85% wide x 75% tall)
+ *   Ctrl+Alt+G  — Floating lazygit
+ *   Ctrl+Alt+Y  — Floating yazi
+ *   Ctrl+Shift+Alt+G — Floating gcp (git conventional commits)
  *
- * 交互：
- *   正常输入 → 发送到终端
- *   exit / Ctrl+D → 退出 shell，自动关闭
- *   Ctrl+Space → 强制关闭浮动终端
+ * Interaction:
+ *   Normal input forwarded to the terminal
+ *   exit / Ctrl+D — Quit shell, auto-close the overlay
+ *   Ctrl+Space — Force close the floating terminal
  *
- * 类似 Neovim 的 <leader>ft 浮动终端。
- * 基于 node-pty 实现真正的 PTY 终端模拟。
+ * Inspired by Neovim's <leader>ft floating terminal.
+ * Full PTY terminal emulation via node-pty.
  *
- * 可通过 FLOAT_TERM_SHELL 环境变量自定义 shell（默认 fish）。
+ * Customize the shell via the FLOAT_TERM_SHELL environment variable (default: fish).
  */
 
 import type { IPty } from "node-pty";
@@ -763,7 +763,7 @@ function padAnsi(styled: string, width: number): string {
 
 async function openFloatTerm(ctx: any, shellCmd: string, shellArgs: string[]) {
   if (ctx.mode !== "tui") {
-    ctx.ui.notify("浮动终端需要 TUI 模式", "warning");
+    ctx.ui.notify("Floating terminal requires TUI mode", "warning");
     return;
   }
 
@@ -854,28 +854,28 @@ export default function (pi: ExtensionAPI) {
   // ── Shortcuts ──
 
   pi.registerShortcut("ctrl+alt+f", {
-    description: "浮动终端: fish",
+    description: "Floating terminal: fish",
     handler: async (ctx: any) => {
       await openFloatTerm(ctx, "fish", []);
     },
   });
 
   pi.registerShortcut("ctrl+alt+g", {
-    description: "浮动终端: lazygit",
+    description: "Floating terminal: lazygit",
     handler: async (ctx: any) => {
       await openFloatTerm(ctx, "lazygit", []);
     },
   });
 
   pi.registerShortcut("ctrl+alt+y", {
-    description: "浮动终端: yazi",
+    description: "Floating terminal: yazi",
     handler: async (ctx: any) => {
       await openFloatTerm(ctx, "yazi", []);
     },
   });
 
   pi.registerShortcut("ctrl+shift+alt+g", {
-    description: "浮动终端: gcp (git conventional commits)",
+    description: "Floating terminal: gcp (git conventional commits)",
     handler: async (ctx: any) => {
       await openFloatTerm(ctx, "fish", ["-c", "gcp; exec fish"]);
     },
@@ -884,21 +884,21 @@ export default function (pi: ExtensionAPI) {
   // ── Commands ──
 
   pi.registerCommand("float-fish", {
-    description: "打开浮动终端 (fish)",
+    description: "Open floating terminal (fish)",
     handler: async (_args: any, ctx: any) => {
       await openFloatTerm(ctx, "fish", []);
     },
   });
 
   pi.registerCommand("float-lazygit", {
-    description: "打开浮动终端 (lazygit)",
+    description: "Open floating terminal (lazygit)",
     handler: async (_args: any, ctx: any) => {
       await openFloatTerm(ctx, "lazygit", []);
     },
   });
 
   pi.registerCommand("float-yazi", {
-    description: "打开浮动终端 (yazi)",
+    description: "Open floating terminal (yazi)",
     handler: async (_args: any, ctx: any) => {
       await openFloatTerm(ctx, "yazi", []);
     },

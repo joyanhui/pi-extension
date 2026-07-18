@@ -30,6 +30,10 @@ Or all at once by adding to `~/.pi/agent/settings.json`:
 }
 ```
 
+## Documentation
+
+Visit [dev.leiyanhui.com/ai](https://dev.leiyanhui.com/ai) for detailed articles about each extension.
+
 ## Development
 
 Each package is self-contained in its own directory. To publish an updated version:

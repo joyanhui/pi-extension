@@ -38,6 +38,10 @@ If you're not using a terminal emulator that supports DECSCUSR (the `\x1b[6 q` s
 2. Overrides pi's editor component to strip the reverse-video block cursor from each rendered line
 3. The hardware bar cursor shows through unobstructed
 
+## Documentation
+
+For more information, visit [dev.leiyanhui.com/ai](https://dev.leiyanhui.com/ai).
+
 ## License
 
 MIT

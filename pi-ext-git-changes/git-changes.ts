@@ -1,13 +1,13 @@
 /**
- * Git Changes Viewer — 查看工作区修改/新增/删除文件列表
+ * Git Changes Viewer — View working tree changes (modified/added/deleted files)
  *
  * Install:
  *   pi install npm:@joyanhui/pi-ext-git-changes
  *
- * 三种访问方式：
- *   /changes          — 浮动 overlay，分类展示 git 变更
- *   ctrl+shift+g      — 快捷键拉起 overlay
- *   footer 状态栏      — 常驻显示变更文件计数
+ * Three access methods:
+ *   /changes          — Floating overlay, categorized git changes
+ *   ctrl+shift+g      — Keyboard shortcut to open the overlay
+ *   footer status bar — Persistent file change count display
  */
 
 import { spawnSync } from "node:child_process";
