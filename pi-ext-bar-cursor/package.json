@@ -1,6 +1,6 @@
 {
   "name": "@joyanhui/pi-ext-bar-cursor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Pi coding agent extension — replaces the default block cursor with a vertical bar using the terminal's native hardware cursor shape (DECSCUSR)",
   "keywords": [
     "pi-package",
