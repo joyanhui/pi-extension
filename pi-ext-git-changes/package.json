@@ -1,0 +1,41 @@
+{
+  "name": "@joyanhui/pi-ext-git-changes",
+  "version": "1.0.0",
+  "description": "Pi coding agent extension — interactive git working tree changes viewer with overlay, shortcut, and footer status",
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "pi-coding-agent",
+    "git",
+    "git-changes",
+    "changes",
+    "overlay"
+  ],
+  "homepage": "https://github.com/joyanhui/pi-extension",
+  "bugs": {
+    "url": "https://github.com/joyanhui/pi-extension/issues"
+  },
+  "license": "MIT",
+  "author": "joyanhui",
+  "files": [
+    "git-changes.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "pi": {
+    "extensions": [
+      "./git-changes.ts"
+    ]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "@earendil-works/pi-tui": "*"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joyanhui/pi-extension.git"
+  }
+}

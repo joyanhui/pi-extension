@@ -1,0 +1,44 @@
+{
+  "name": "@joyanhui/pi-ext-float-term",
+  "version": "1.0.0",
+  "description": "Pi coding agent extension — floating terminal overlay (fish, lazygit, yazi, gcp) powered by node-pty",
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "pi-coding-agent",
+    "float-term",
+    "floating-terminal",
+    "terminal",
+    "pty"
+  ],
+  "homepage": "https://github.com/joyanhui/pi-extension",
+  "bugs": {
+    "url": "https://github.com/joyanhui/pi-extension/issues"
+  },
+  "license": "MIT",
+  "author": "joyanhui",
+  "files": [
+    "float-term.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "pi": {
+    "extensions": [
+      "./float-term.ts"
+    ]
+  },
+  "dependencies": {
+    "node-pty": "^1.1.0"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "@earendil-works/pi-tui": "*"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joyanhui/pi-extension.git"
+  }
+}

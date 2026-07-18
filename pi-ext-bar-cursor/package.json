@@ -1,0 +1,40 @@
+{
+  "name": "@joyanhui/pi-ext-bar-cursor",
+  "version": "1.0.0",
+  "description": "Pi coding agent extension — replaces the default block cursor with a vertical bar using the terminal's native hardware cursor shape (DECSCUSR)",
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "pi-coding-agent",
+    "cursor",
+    "bar-cursor",
+    "terminal"
+  ],
+  "homepage": "https://github.com/joyanhui/pi-extension",
+  "bugs": {
+    "url": "https://github.com/joyanhui/pi-extension/issues"
+  },
+  "license": "MIT",
+  "author": "joyanhui",
+  "files": [
+    "bar-cursor.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "pi": {
+    "extensions": [
+      "./bar-cursor.ts"
+    ]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "@earendil-works/pi-tui": "*"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joyanhui/pi-extension.git"
+  }
+}
