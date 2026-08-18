@@ -82,6 +82,8 @@ The function defaults to type `✨feat` (option 1) if you press Enter without se
 
 For more information, visit [dev.leiyanhui.com/ai/pi-float-term](https://dev.leiyanhui.com/ai/pi-float-term/).
 
+For source code, visit [github.com/joyanhui/pi-extension](https://github.com/joyanhui/pi-extension).
+
 ## License
 
 MIT

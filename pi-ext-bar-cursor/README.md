@@ -42,6 +42,8 @@ If you're not using a terminal emulator that supports DECSCUSR (the `\x1b[6 q` s
 
 For more information, visit [dev.leiyanhui.com/ai/pi-bar-cursor](https://dev.leiyanhui.com/ai/pi-bar-cursor/).
 
+For source code, visit [github.com/joyanhui/pi-extension](https://github.com/joyanhui/pi-extension).
+
 ## License
 
 MIT

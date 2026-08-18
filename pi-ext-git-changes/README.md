@@ -48,6 +48,8 @@ The extension shows a status indicator in pi's footer bar. For example:
 
 For more information, visit [dev.leiyanhui.com/ai/pi-git-changes](https://dev.leiyanhui.com/ai/pi-git-changes/).
 
+For source code, visit [github.com/joyanhui/pi-extension](https://github.com/joyanhui/pi-extension).
+
 ## License
 
 MIT
