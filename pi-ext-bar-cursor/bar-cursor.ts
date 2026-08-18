@@ -5,8 +5,6 @@
  * Install:
  *   pi install npm:@joyanhui/pi-ext-bar-cursor
  *
- * Requires showHardwareCursor: true in settings.json (already set).
- *
  * How it works:
  * 1. Sends DECSCUSR `\x1b[6 q` to tell the terminal "use a steady vertical bar".
  * 2. Strips the editor's fake block cursor (\x1b[7m…\x1b[0m) so the hardware
@@ -20,7 +18,7 @@ import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { CURSOR_MARKER } from "@earendil-works/pi-tui";
 
 const REVERSE_ON = "\x1b[7m";
-const SGR_RESET = "\x1b[0m";
+const REVERSE_OFF = ["\x1b[0m", "\x1b[27m"];
 
 /** Set terminal hardware cursor to a steady vertical bar (DECSCUSR). */
 const BAR_CURSOR = "\x1b[6 q";
@@ -40,12 +38,15 @@ function stripBlockCursor(line: string): string {
   if (!afterMarker.startsWith(REVERSE_ON)) return line;
 
   const contentStart = markerIdx + CURSOR_MARKER.length + REVERSE_ON.length;
-  const resetIdx = line.indexOf(SGR_RESET, contentStart);
-  if (resetIdx === -1) return line;
+  const reverseOff = REVERSE_OFF
+    .map((sequence) => ({ sequence, index: line.indexOf(sequence, contentStart) }))
+    .filter(({ index }) => index !== -1)
+    .sort((a, b) => a.index - b.index)[0];
+  if (!reverseOff) return line;
 
-  const cursorChar = line.substring(contentStart, resetIdx);
+  const cursorChar = line.substring(contentStart, reverseOff.index);
   const before = line.substring(0, markerIdx);
-  const after = line.substring(resetIdx + SGR_RESET.length);
+  const after = line.substring(reverseOff.index + reverseOff.sequence.length);
 
   // Just skip the escape codes — character appears normally, width unchanged.
   return before + CURSOR_MARKER + cursorChar + after;
@@ -67,7 +68,11 @@ export default function (pi: ExtensionAPI) {
     process.stdout.write(BAR_CURSOR);
 
     ctx.ui.setEditorComponent(
-      (tui, editorTheme, kb) => new BarCursorEditor(tui, editorTheme, kb),
+      (tui, editorTheme, kb) => {
+        // Pi hides the terminal cursor by default, even when a cursor marker exists.
+        tui.setShowHardwareCursor(true);
+        return new BarCursorEditor(tui, editorTheme, kb);
+      },
     );
   });
 }

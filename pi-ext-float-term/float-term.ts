@@ -22,14 +22,76 @@
  */
 
 import type { IPty } from "node-pty";
-import { spawn as ptySpawn } from "node-pty";
-import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import { createRequire } from "node:module";
+import { execSync } from "node:child_process";
+import { existsSync } from "node:fs";
+import { homedir } from "node:os";
+import { join } from "node:path";
+import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
 import {
   Key,
   matchesKey,
   truncateToWidth,
   visibleWidth,
 } from "@earendil-works/pi-tui";
+
+const require = createRequire(import.meta.url);
+
+interface PtyApi {
+  spawn(file: string, args: string[] | string, options: unknown): IPty;
+  spawn(
+    file: string,
+    args: string[] | string,
+    options: { [key: string]: unknown },
+  ): IPty;
+}
+
+let ptyApiCache: PtyApi | undefined;
+let ptyApiError: string | undefined;
+
+/** Resolve a runnable node-pty install from candidates.
+ *
+ *  node-pty is a native addon and on Linux it must be compiled with node-gyp
+ *  (no prebuilt binaries ship for linux). Prefer an explicit override, then a
+ *  local install, then bun/npm global installs so the extension works whether
+ *  it was installed by bun or npm. */
+function loadPty(): PtyApi | undefined {
+  if (ptyApiCache) return ptyApiCache;
+
+  const candidates: string[] = [];
+  if (process.env.FLOAT_TERM_NODE_PTY) {
+    candidates.push(process.env.FLOAT_TERM_NODE_PTY);
+  }
+  // Local node_modules of the extension itself (optionalDependencies install).
+  try {
+    const localIndex = require.resolve("node-pty/lib/index.js");
+    candidates.push(join(localIndex, ".."));
+  } catch {
+    /* not installed locally; fall through to globals */
+  }
+  candidates.push(join(homedir(), ".bun", "install", "global", "node_modules", "node-pty"));
+  try {
+    const npmRoot = execSync("npm root -g", { encoding: "utf-8" }).trim();
+    if (npmRoot) candidates.push(join(npmRoot, "node-pty"));
+  } catch {
+    /* npm unavailable; keep other candidates */
+  }
+
+  const failures: string[] = [];
+  for (const dir of candidates) {
+    const indexPath = join(dir, "lib", "index.js");
+    if (!existsSync(indexPath)) continue;
+    try {
+      ptyApiCache = require(indexPath) as PtyApi;
+      return ptyApiCache;
+    } catch (e) {
+      failures.push(`${dir}: ${e instanceof Error ? e.message : String(e)}`);
+    }
+  }
+
+  ptyApiError = failures.join(" | ");
+  return undefined;
+}
 
 // ---------------------------------------------------------------------------
 // Types
@@ -641,7 +703,7 @@ class FloatTermOverlay {
     this.innerRows = rows;
     this.term = new TermBuffer(cols, rows);
 
-    this.ptyProcess = ptySpawn(shellCmd, shellArgs, {
+    this.ptyProcess = loadPty()!.spawn(shellCmd, shellArgs, {
       name: "xterm-256color",
       cols,
       rows,
@@ -666,7 +728,7 @@ class FloatTermOverlay {
     if (this.closed) return;
 
     // Ctrl+Space: force close (like Neovim's floating terminal)
-    if (matchesKey(data, Key.ctrl(" ")) || matchesKey(data, "ctrl+space")) {
+    if (matchesKey(data, "ctrl+space")) {
       this.close();
       return;
     }
@@ -761,9 +823,18 @@ function padAnsi(styled: string, width: number): string {
 // Entry point
 // ---------------------------------------------------------------------------
 
-async function openFloatTerm(ctx: any, shellCmd: string, shellArgs: string[]) {
+async function openFloatTerm(ctx: ExtensionContext, shellCmd: string, shellArgs: string[]) {
   if (ctx.mode !== "tui") {
     ctx.ui.notify("Floating terminal requires TUI mode", "warning");
+    return;
+  }
+
+  if (!loadPty()) {
+    ctx.ui.notify(
+      `node-pty unavailable: ${ptyApiError ?? "not found"}. ` +
+        "Install node-pty (needs node-gyp, python3, make, g++) and set FLOAT_TERM_NODE_PTY to its directory",
+      "warning",
+    );
     return;
   }
 

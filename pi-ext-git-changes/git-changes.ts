@@ -6,7 +6,7 @@
  *
  * Three access methods:
  *   /changes          — Floating overlay, categorized git changes
- *   ctrl+shift+g      — Keyboard shortcut to open the overlay
+ *   ctrl+shift+c      — Keyboard shortcut to open the overlay
  *   footer status bar — Persistent file change count display
  */
 
@@ -285,10 +285,10 @@ export default function (pi: ExtensionAPI) {
     const text = buildStatusText(changes);
     if (text) {
       ctx.ui.setStatus(STATUS_KEY,
-        t.fg("accent", "C-S-g") + t.fg("dim", ":" + text));
+        t.fg("accent", "C-S-c") + t.fg("dim", ":" + text));
     } else {
       ctx.ui.setStatus(STATUS_KEY,
-        t.fg("accent", "C-S-g") + t.fg("dim", ":✓"));
+        t.fg("accent", "C-S-c") + t.fg("dim", ":✓"));
     }
   }
 
@@ -342,8 +342,8 @@ export default function (pi: ExtensionAPI) {
     handler: async (_args, ctx) => { await showOverlay(ctx); },
   });
 
-  // ctrl+shift+g shortcut
-  pi.registerShortcut("ctrl+shift+g", {
+  // ctrl+shift+c shortcut
+  pi.registerShortcut("ctrl+shift+c", {
     description: "Show git changes overlay",
     handler: async (ctx) => { await showOverlay(ctx); },
   });

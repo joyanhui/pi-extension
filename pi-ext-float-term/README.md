@@ -22,6 +22,12 @@ Or for a single session:
 pi -e npm:@joyanhui/pi-ext-float-term
 ```
 
+## Requirements
+
+- pi coding agent (v0.x+)
+- `node-pty` is a native addon without Linux prebuilds; on Linux it must be compiled with `node-gyp`, so it needs `node-gyp`, `python3`, `make`, and `g++`.
+- The extension resolves `node-pty` at runtime from: local install, bun global (`~/.bun/install/global`), npm global, or the `FLOAT_TERM_NODE_PTY` env var pointing at a `node-pty` directory.
+- If the package installs with a warning (optional dependency failed), build `node-pty` once and either install it globally or point `FLOAT_TERM_NODE_PTY` at it.
 ## Commands
 
 | Command | Description |

@@ -24,7 +24,7 @@ pi -e npm:@joyanhui/pi-ext-bar-cursor
 ## Requirements
 
 - pi coding agent (v0.x+)
-- `showHardwareCursor: true` in pi's `settings.json`
+- The extension enables Pi's hardware cursor when the session starts; no settings change is needed
 
 ## Usage
 

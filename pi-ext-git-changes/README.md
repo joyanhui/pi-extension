@@ -5,8 +5,8 @@ A [pi](https://pi.dev) extension providing an interactive **git working tree cha
 ## Features
 
 - **`/changes` command** — opens an overlay showing staged, unstaged, untracked, and conflicted files
-- **`Ctrl+Shift+G` shortcut** — same overlay, instant access
-- **Footer status** — always visible file change counts (e.g. `C-S-g:📦3 📝2 ❓1`)
+- **`Ctrl+Shift+C` shortcut** — same overlay, instant access
+- **Footer status** — always visible file change counts (e.g. `C-S-c:📦3 📝2 ❓1`)
 - **Actions** — press `Enter` to open file in editor, `e` to edit with nvim, `y` to yank filename
 - **Clean tree** — shows `✓` when working tree is clean
 
@@ -37,8 +37,8 @@ pi -e npm:@joyanhui/pi-ext-git-changes
 ### Footer status
 
 The extension shows a status indicator in pi's footer bar. For example:
-- `C-S-g:📦3 📝2 ❓1` — 3 staged, 2 unstaged, 1 untracked
-- `C-S-g:✓` — working tree clean
+- `C-S-c:📦3 📝2 ❓1` — 3 staged, 2 unstaged, 1 untracked
+- `C-S-c:✓` — working tree clean
 
 ## Requirements
 
