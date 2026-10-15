@@ -25,9 +25,10 @@ pi -e npm:@joyanhui/pi-ext-float-term
 ## Requirements
 
 - pi coding agent (v0.x+)
-- `node-pty` is an optional native dependency; Linux requires `python3`, `make`, `g++`, and `node-gyp`.
-- Install it with `npm install -g node-gyp node-pty` (or `bun add --global node-gyp node-pty`).
-- If `node-pty unavailable` appears, set `FLOAT_TERM_NODE_PTY` to its package directory and restart pi:
+- `node-pty` is an optional native dependency; Linux requires `python3`, `make`, and `g++`.
+- Install it with `npm install -g --allow-scripts=node-pty node-gyp node-pty`.
+- With pnpm, run `pnpm approve-builds`, approve `node-pty`, then run `pnpm rebuild node-pty`.
+- If needed, set `FLOAT_TERM_NODE_PTY` to its package directory and restart pi:
 
 ```bash
 export FLOAT_TERM_NODE_PTY="$(npm root -g)/node-pty"
