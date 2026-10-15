@@ -24,7 +24,7 @@
 import type { IPty } from "node-pty";
 import { createRequire } from "node:module";
 import { execSync } from "node:child_process";
-import { existsSync } from "node:fs";
+import { existsSync, readdirSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
@@ -75,6 +75,21 @@ function loadPty(): PtyApi | undefined {
     if (npmRoot) candidates.push(join(npmRoot, "node-pty"));
   } catch {
     /* npm unavailable; keep other candidates */
+  }
+  // pnpm stores global packages in a virtual project directory rather than
+  // directly under `pnpm root -g`.
+  try {
+    const pnpmRoot = execSync("pnpm root -g", { encoding: "utf-8" }).trim();
+    if (pnpmRoot) {
+      candidates.push(join(pnpmRoot, "node-pty"));
+      for (const entry of readdirSync(pnpmRoot, { withFileTypes: true })) {
+        if (entry.isDirectory()) {
+          candidates.push(join(pnpmRoot, entry.name, "node_modules", "node-pty"));
+        }
+      }
+    }
+  } catch {
+    /* pnpm unavailable; keep other candidates */
   }
 
   const failures: string[] = [];

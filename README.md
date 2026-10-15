@@ -30,6 +30,16 @@ Or all at once by adding to `~/.pi/agent/settings.json`:
 }
 ```
 
+## Native dependency for pi-ext-float-term
+
+`pi-ext-float-term` requires the native `node-pty` addon; on Linux, install `python3`, `make`, `g++`, and `node-gyp` first.
+
+```bash
+sudo apt install -y python3 make g++ && npm install -g node-gyp node-pty
+```
+
+If `node-pty unavailable` appears, set `FLOAT_TERM_NODE_PTY="$(npm root -g)/node-pty"` and restart pi. See [`pi-ext-float-term/README.md`](./pi-ext-float-term/README.md).
+
 
 ## Development
 
