@@ -4,10 +4,11 @@ A [pi](https://pi.dev) extension providing **floating terminal overlays** powere
 
 ## Features
 
-- **Floating fish shell** — `Ctrl+Alt+F` opens an interactive fish terminal in an overlay
+- **Floating system shell** — `Ctrl+Alt+S` opens the system default shell in an overlay
+  - Windows: `FLOAT_TERM_SHELL`, then `ComSpec`/`COMSPEC`, finally `cmd.exe`
+  - Unix: `FLOAT_TERM_SHELL`, then `SHELL`, finally `/bin/sh`
 - **Floating lazygit** — `Ctrl+Alt+G` opens lazygit in a floating terminal
 - **Floating yazi** — `Ctrl+Alt+Y` opens the yazi file manager
-- **Floating gcp** — `Ctrl+Shift+Alt+G` runs gcp (git conventional commits) then drops into fish
 - **Exit gracefully** — `exit` / `Ctrl+D` quits the shell and auto-closes; `Ctrl+Space` force-closes
 
 ## Installation
@@ -46,39 +47,9 @@ export FLOAT_TERM_NODE_PTY="$(npm root -g)/node-pty"
 
 | Shortcut | Action |
 |----------|--------|
-| `Ctrl+Alt+F` | Floating fish shell |
+| `Ctrl+Alt+S` | Floating system default shell |
 | `Ctrl+Alt+G` | Floating lazygit |
 | `Ctrl+Alt+Y` | Floating yazi |
-| `Ctrl+Shift+Alt+G` | Floating gcp (git commit + push) |
-
-### gcp — Interactive Git Commit & Push
-
-The `gcp` function (triggered via `Ctrl+Shift+Alt+G`) is an interactive helper for creating [Conventional Commits](https://www.conventionalcommits.org/) and pushing them. It automates the `git add . && git commit -m "..." && git push` workflow.
-
-**How it works:**
-
-1. **Shows working tree overview** — displays `git status --short` so you can review what will be staged
-2. **Prompts for commit type** — select from a numbered list of conventional commit types:
-
-| # | Type | Description |
-|---|------|-------------|
-| 1 | `✨feat` | A new feature |
-| 2 | `🐛fix` | A bug fix |
-| 3 | `📝docs` | Documentation only changes |
-| 4 | `💄style` | Formatting, whitespace, missing semicolons (no logic change) |
-| 5 | `♻️refactor` | Code refactoring (neither feat nor fix) |
-| 6 | `⚡perf` | Performance improvement |
-| 7 | `✅test` | Adding or modifying tests |
-| 8 | `👷build` | Build system, dependencies, CI configuration |
-| 9 | `🔧chore` | Maintenance, tooling, config files, gitignore |
-| 10 | `⏪revert` | Revert a previous commit |
-| 11 | `🔄update` | Dependency updates, toolchain version bumps, library upgrades |
-
-3. **Prompts for commit description** — enter a short summary (required)
-4. **Executes** — runs `git add .`  then `git commit -m "<type>: <description>"` then `git push`
-
-The function defaults to type `✨feat` (option 1) if you press Enter without selecting a number.
-
 ## Documentation
 
 For more information, visit [dev.leiyanhui.com/ai/pi-float-term](https://dev.leiyanhui.com/ai/pi-float-term/).

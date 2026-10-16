@@ -5,7 +5,7 @@ A collection of [pi](https://pi.dev) coding agent extensions published on npm un
 ## Packages
 
 - **pi-ext-bar-cursor** — Replaces block cursor with a vertical bar via DECSCUSR.
-- **pi-ext-float-term** — Floating terminal overlay (fish, lazygit, yazi, gcp) using node-pty.
+- **pi-ext-float-term** — Floating terminal overlay (fish, lazygit, yazi) using node-pty.
 - **pi-ext-git-changes** — Interactive git working tree changes viewer with overlay and status.
 
 ## Tech Stack

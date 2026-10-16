@@ -5,10 +5,9 @@
  *   pi install npm:@joyanhui/pi-ext-float-term
  *
  * Usage:
- *   Ctrl+Alt+F  — Open a floating fish terminal (centered, 85% wide x 75% tall)
+ *   Ctrl+Alt+S  — Open a floating system default shell (centered, 85% wide x 75% tall)
  *   Ctrl+Alt+G  — Floating lazygit
  *   Ctrl+Alt+Y  — Floating yazi
- *   Ctrl+Shift+Alt+G — Floating gcp (git conventional commits)
  *
  * Interaction:
  *   Normal input forwarded to the terminal
@@ -18,7 +17,8 @@
  * Inspired by Neovim's <leader>ft floating terminal.
  * Full PTY terminal emulation via node-pty.
  *
- * Customize the shell via the FLOAT_TERM_SHELL environment variable (default: fish).
+ * Customize the shell via FLOAT_TERM_SHELL. Windows uses ComSpec/COMSPEC
+ * (usually cmd.exe); Unix uses SHELL (fallback: /bin/sh).
  */
 
 import type { IPty } from "node-pty";
@@ -36,6 +36,20 @@ import {
 } from "@earendil-works/pi-tui";
 
 const require = createRequire(import.meta.url);
+
+function getDefaultShell(
+  platform = process.platform,
+  env = process.env,
+): string {
+  const configuredShell = env.FLOAT_TERM_SHELL?.trim();
+  if (configuredShell) return configuredShell;
+
+  if (platform === "win32") {
+    return env.ComSpec?.trim() || env.COMSPEC?.trim() || "cmd.exe";
+  }
+
+  return env.SHELL?.trim() || "/bin/sh";
+}
 
 interface PtyApi {
   spawn(file: string, args: string[] | string, options: unknown): IPty;
@@ -925,9 +939,8 @@ export default function (pi: ExtensionAPI) {
     if (!ctx.hasUI) return;
     const t = ctx.ui.theme;
     const hint = [
-      t.fg("accent", "C-a-f") + t.fg("dim", ":fish"),
+      t.fg("accent", "C-a-s") + t.fg("dim", ":shell"),
       t.fg("accent", "C-a-y") + t.fg("dim", ":yazi"),
-      t.fg("accent", "C-S-a-g") + t.fg("dim", ":gcp"),
       t.fg("accent", "C-a-g") + t.fg("dim", ":lazygit"),
     ].join("  ");
     ctx.ui.setStatus(STATUS_KEY, hint);
@@ -939,10 +952,10 @@ export default function (pi: ExtensionAPI) {
 
   // ── Shortcuts ──
 
-  pi.registerShortcut("ctrl+alt+f", {
-    description: "Floating terminal: fish",
+  pi.registerShortcut("ctrl+alt+s", {
+    description: "Floating terminal: shell",
     handler: async (ctx: any) => {
-      await openFloatTerm(ctx, "fish", []);
+      await openFloatTerm(ctx, getDefaultShell(), []);
     },
   });
 
@@ -957,13 +970,6 @@ export default function (pi: ExtensionAPI) {
     description: "Floating terminal: yazi",
     handler: async (ctx: any) => {
       await openFloatTerm(ctx, "yazi", []);
-    },
-  });
-
-  pi.registerShortcut("ctrl+shift+alt+g", {
-    description: "Floating terminal: gcp (git conventional commits)",
-    handler: async (ctx: any) => {
-      await openFloatTerm(ctx, "fish", ["-c", "gcp; exec fish"]);
     },
   });
 

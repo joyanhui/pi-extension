@@ -7,7 +7,7 @@ A monorepo of [pi](https://pi.dev) coding agent extensions, published on npm as 
 | Package | npm | Description |
 |---------|-----|-------------|
 | [pi-ext-bar-cursor](./pi-ext-bar-cursor) | [@joyanhui/pi-ext-bar-cursor](https://www.npmjs.com/package/@joyanhui/pi-ext-bar-cursor) | Replaces block cursor with a vertical bar (DECSCUSR) |
-| [pi-ext-float-term](./pi-ext-float-term) | [@joyanhui/pi-ext-float-term](https://www.npmjs.com/package/@joyanhui/pi-ext-float-term) | Floating terminal overlay (fish, lazygit, yazi, gcp) |
+| [pi-ext-float-term](./pi-ext-float-term) | [@joyanhui/pi-ext-float-term](https://www.npmjs.com/package/@joyanhui/pi-ext-float-term) | Floating terminal overlay (fish, lazygit, yazi) |
 | [pi-ext-git-changes](./pi-ext-git-changes) | [@joyanhui/pi-ext-git-changes](https://www.npmjs.com/package/@joyanhui/pi-ext-git-changes) | Interactive git working tree changes viewer |
 
 ## Install via pi
